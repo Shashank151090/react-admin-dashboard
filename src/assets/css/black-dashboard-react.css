@@ -9480,6 +9480,7 @@ img {
 
 .modal .modal-header .close {
   color: #fd5d93;
+  position: fixed;
   text-shadow: none; }
   .modal .modal-header .close:hover, .modal .modal-header .close:focus {
     opacity: 1; }
