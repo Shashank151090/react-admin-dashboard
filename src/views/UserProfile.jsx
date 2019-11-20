@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Black Dashboard React v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 
 // reactstrap components
@@ -33,6 +16,59 @@ import {
 } from "reactstrap";
 
 class UserProfile extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleSave = this.handleSave.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleFnameChange = this.handleFnameChange.bind(this);
+    this.handleLnameChange = this.handleLnameChange.bind(this);
+    this.handleAddressChange = this.handleAddressChange.bind(this);
+    this.handleCityChange = this.handleCityChange.bind(this);
+    this.handleCountryChange = this.handleCountryChange.bind(this);
+    this.handleZipChange = this.handleZipChange.bind(this);
+    this.handleAboutChange = this.handleAboutChange.bind(this);
+
+    this.state = {
+      email: "",
+      fname: "",
+      lname: "",
+      address: "",
+      city: "",
+      country: "",
+      pincode: "",
+      about: "",
+    };
+    this.userData = this.state;
+  }
+  handleEmailChange(e) {
+    this.setState({email: e.target.value});
+ }
+ handleFnameChange(e) {
+    this.setState({fname: e.target.value});
+ }
+ handleLnameChange(e) {
+  this.setState({lname: e.target.value});
+}
+ handleAddressChange(e) {
+  this.setState({address: e.target.value});
+ }
+ handleCityChange(e) {
+  this.setState({city: e.target.value});
+}
+handleCountryChange(e) {
+this.setState({country: e.target.value});
+}
+handleZipChange(e) {
+this.setState({pincode: e.target.value});
+}
+handleAboutChange(e) {
+  this.setState({about: e.target.value});
+  }
+    
+  handleSave() {
+    console.log(this.userData)
+  }
   render() {
     return (
       <>
@@ -63,6 +99,8 @@ class UserProfile extends React.Component {
                           <Input
                             defaultValue="michael23"
                             placeholder="Username"
+                            disabled
+                            name="userName" id="userName" 
                             type="text"
                           />
                         </FormGroup>
@@ -72,7 +110,7 @@ class UserProfile extends React.Component {
                           <label htmlFor="exampleInputEmail1">
                             Email address
                           </label>
-                          <Input placeholder="mike@email.com" type="email" />
+                          <Input placeholder="mike@email.com" name="email" id="email" type="email" onChange={this.handleEmailChange}  />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -81,8 +119,10 @@ class UserProfile extends React.Component {
                         <FormGroup>
                           <label>First Name</label>
                           <Input
-                            defaultValue="Mike"
                             placeholder="Company"
+                            name="fname"
+                            onChange={this.handleFnameChange} 
+                            id="fname"
                             type="text"
                           />
                         </FormGroup>
@@ -91,7 +131,9 @@ class UserProfile extends React.Component {
                         <FormGroup>
                           <label>Last Name</label>
                           <Input
-                            defaultValue="Andrew"
+                            name="lname"
+                            onChange={this.handleLnameChange} 
+                            id="lname"
                             placeholder="Last Name"
                             type="text"
                           />
@@ -103,8 +145,10 @@ class UserProfile extends React.Component {
                         <FormGroup>
                           <label>Address</label>
                           <Input
-                            defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
                             placeholder="Home Address"
+                            name="address"
+                            onChange={this.handleAddressChange} 
+                            id="address"
                             type="text"
                           />
                         </FormGroup>
@@ -115,8 +159,10 @@ class UserProfile extends React.Component {
                         <FormGroup>
                           <label>City</label>
                           <Input
-                            defaultValue="Mike"
                             placeholder="City"
+                            name="city"
+                            onChange={this.handleCityChange} 
+                            id="city"
                             type="text"
                           />
                         </FormGroup>
@@ -125,8 +171,10 @@ class UserProfile extends React.Component {
                         <FormGroup>
                           <label>Country</label>
                           <Input
-                            defaultValue="Andrew"
                             placeholder="Country"
+                            name="country"
+                            onChange={this.handleCountryChange} 
+                            id="country"
                             type="text"
                           />
                         </FormGroup>
@@ -134,7 +182,7 @@ class UserProfile extends React.Component {
                       <Col className="pl-md-1" md="4">
                         <FormGroup>
                           <label>Postal Code</label>
-                          <Input placeholder="ZIP Code" type="number" />
+                          <Input placeholder="ZIP Code" onChange={this.handleZipChange} name="pincode" id="pincode" type="number" />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -144,22 +192,21 @@ class UserProfile extends React.Component {
                           <label>About Me</label>
                           <Input
                             cols="80"
-                            defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                            that two seat Lambo."
                             placeholder="Here can be your description"
+                            name="about"
+                            onChange={this.handleAboutChange} 
+                            id="about"
                             rows="4"
                             type="textarea"
                           />
                         </FormGroup>
                       </Col>
                     </Row>
-                  </Form>
-                </CardBody>
-                <CardFooter>
-                  <Button className="btn-fill" color="primary" type="submit">
+                    <Button className="btn-fill" color="primary" type="button" onClick={this.handleSave}>
                     Save
                   </Button>
-                </CardFooter>
+                  </Form>
+                </CardBody>
               </Card>
             </Col>
             <Col md="4">
@@ -177,14 +224,13 @@ class UserProfile extends React.Component {
                         className="avatar"
                         src={require("assets/img/emilyz.jpg")}
                       />
-                      <h5 className="title">Mike Andrew</h5>
+                      <h5 className="title">{this.state.fname} {this.state.lname}</h5>
                     </a>
                     <p className="description">Ceo/Co-Founder</p>
+                    <h5 className="title"><i>{this.state.email}</i></h5>
                   </div>
                   <div className="card-description">
-                    Do not be scared of the truth because we need to restart the
-                    human foundation in truth And I love you like Kanye loves
-                    Kanye I love Rick Owens’ bed design but the back is...
+                    {this.state.about}
                   </div>
                 </CardBody>
                 <CardFooter>
